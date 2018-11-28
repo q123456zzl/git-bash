@@ -1,33 +1,86 @@
+1.git clone远程分支和首次关联远程服务器
+  (1)clone
+  $ git clone git@github.com:jirengu/blog.git
+  (2)关联远程服务器
+     第一步：进入本地代码目录,使用git init,
+     第二步：关联,origin后面的git地址从git远程复制git remote add origin git@git.oschina.net:yourname/demo.git
+            若有冲突，
+            git remote rm origin   //删除origin
+            git remote add origin git@git.oschina.net:yourname/demo.git   //重新添加origin
+     第三步：更新 git pull
 2.配置Git
   $ git config --global user.name "My Name"
   $ git config --global user.email myEmail@example.com
 3.创建一个新仓库 – git init
   $ git init
-4.检查状态 – git status
+4.检查状态 
+  $ git status
 
 5.暂存 – git add
-
+  $ git add . 提交所有 
+  $ git add targetFile 选择指定文件提交
 6.提交 – git commit
   $ git commit -m "Initial commit."
 
 
 7.git添加标签
-git tag -a v1.0.2 -m"1.0.2版本"
+  $ git tag -a v1.0.2 -m"1.0.2版本"
+  git后期打标签
+  $ git tag -a v1.0.3 f3452w(指定位置Hash码前6位就可以了)
+  tag推送标签
+    (1)推送所有
+    $ git push origin --tags                   
+    (2)推送指定标签
+    $ git push origin v1.0.2
 
-git后期打标签
-git tag -a v1.0.3 f3452w(指定位置Hash码前6位就可以了)
-tag推送标签
-推送所有git push origin --tags                   git push origin v1.0.2
+8.冲突解决(2种方式)*
+(1)拉取冲突
+    使用git pull --rebase 命令，在rebase的过程中，有时也会有conflict，这时Git会停止rebase并让用户去解决冲突，解决完冲突后，用git add命令去更新这些内容，然后不用执行git-commit,直接执行git rebase --continue,这样git会继续apply余下的补丁。
+    在任何时候，都可以用git rebase --abort参数来终止rebase的行动，并且mywork分支会回到rebase开始前的状态。
+(2)提交冲突
+    首先使用git add git commit 将你修改的内容暂存在本地中，然后git pull 拉代码，有冲突手动解决冲突，解决完了后，再git add,git commit ,最后一起git push推送
 
-8.冲突解决*
-(1)首先使用git add git commit 将你修改的内容暂存在本地中，然后git pull 拉代码，有冲突手动解决冲突，解决完了后，再git add git commit ,最后一起git push推送
-(2)使用git pull --rebase 命令，在rebase的过程中，有时也会有conflict，这时Git会停止rebase并让用户去解决冲突，解决完冲突后，用git add命令去更新这些内容，然后不用执行git-commit,直接执行git rebase --continue,这样git会继续apply余下的补丁。
-在任何时候，都可以用git rebase --abort参数来终止rebase的行动，并且mywork分支会回到rebase开始前的状态。
 
+9.分支
+  (1)查看所有分支
+     $ git branch --all
+  (2)创建分支
+     $ git branch 
+  (3)创建并切换本地分支
+     $ git checkout -b newBranch
+  (4)发布dev分支
+     $ git push origin dev:dev  # 这样远程仓库也有一个dev分支了
+  (5) 在dev分支开发代码
+      git checkout dev  # 切换到dev分支进行开发
+      # 开发代码之后，我们有两个选择
+      # 第一个：如果功能开发完成了，可以合并主分支
+      git checkout master  # 切换到主分支
+      git merge dev  # 把dev分支的更改和master合并
+      git push  # 提交主分支代码远程
+      git checkout dev  # 切换到dev远程分支
+      git push  # 提交dev分支到远程
+      # 第二个：如果功能没有完成，可以直接推送
+      git push  # 提交到dev远程分支
+      # 注意：在分支切换之前最好先commit全部的改变，除非你真的知道自己在做什么
+  (6)删除分支
+      git push origin :dev  # 删除远程dev分支，危险命令
+      # 下面两条是删除本地分支
+      git checkout master  # 切换到master分支
+      git branch -d dev  # 删除本地dev分支
+  
+  10.查看提交记录
+      $ git log 
+     查看分支情况
+      $ git log --graph 
+      $ git log --oneline --decorate --graph --all
+    
+    
+    
 使用命令 git remote -v 查看你当前的 remote url
 
 修改git的remote url:
 git remote set-url origin git@github.com:someaccount/someproject.git
 
-查看分支情况
-git log --oneline --decorate --graph --all
+
+
+------------码字不易，记得给个star哟^_^---------------
