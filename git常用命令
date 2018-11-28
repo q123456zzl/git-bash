@@ -1,0 +1,33 @@
+2.配置Git
+  $ git config --global user.name "My Name"
+  $ git config --global user.email myEmail@example.com
+3.创建一个新仓库 – git init
+  $ git init
+4.检查状态 – git status
+
+5.暂存 – git add
+
+6.提交 – git commit
+  $ git commit -m "Initial commit."
+
+
+7.git添加标签
+git tag -a v1.0.2 -m"1.0.2版本"
+
+git后期打标签
+git tag -a v1.0.3 f3452w(指定位置Hash码前6位就可以了)
+tag推送标签
+推送所有git push origin --tags                   git push origin v1.0.2
+
+8.冲突解决*
+(1)首先使用git add git commit 将你修改的内容暂存在本地中，然后git pull 拉代码，有冲突手动解决冲突，解决完了后，再git add git commit ,最后一起git push推送
+(2)使用git pull --rebase 命令，在rebase的过程中，有时也会有conflict，这时Git会停止rebase并让用户去解决冲突，解决完冲突后，用git add命令去更新这些内容，然后不用执行git-commit,直接执行git rebase --continue,这样git会继续apply余下的补丁。
+在任何时候，都可以用git rebase --abort参数来终止rebase的行动，并且mywork分支会回到rebase开始前的状态。
+
+使用命令 git remote -v 查看你当前的 remote url
+
+修改git的remote url:
+git remote set-url origin git@github.com:someaccount/someproject.git
+
+查看分支情况
+git log --oneline --decorate --graph --all
